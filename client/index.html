@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoPulse — Enterprise Energy Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="./vendor/chart.umd.min.js"></script>
+<link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+<div class="shell">
+
+  <!-- ══════════════ SIDEBAR ══════════════ -->
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="sb-logo-name">EcoPulse</div>
+        <div class="sb-logo-sub">Energy Intelligence</div>
+      </div>
+    </div>
+
+    <div class="sb-live">
+      <div class="sb-live-dot"></div>
+      <div class="sb-live-text">LIVE</div>
+    </div>
+
+    <nav class="sb-nav">
+      <div class="sb-section-label">Overview</div>
+      <div class="sb-item active" onclick="nav('dashboard',this)">
+        <svg class="sb-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </div>
+      <div class="sb-item" onclick="nav('report',this)">
+        <svg class="sb-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Analyst Report
+        <span class="sb-item-new">NEW</span>
+      </div>
+
+      <div class="sb-section-label">Analysis</div>
+      <div class="sb-item" onclick="nav('alerts',this)">
+        <svg class="sb-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Alerts
+        <span class="sb-item-badge">3</span>
+      </div>
+      <div class="sb-item" onclick="nav('portfolio',this)">
+        <svg class="sb-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Portfolio
+      </div>
+
+      <div class="sb-section-label">Account</div>
+      <div class="sb-item" onclick="nav('settings',this)">
+        <svg class="sb-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </div>
+    </nav>
+
+    <div class="sb-footer">
+      <div class="sb-user">
+        <div class="sb-avatar">RA</div>
+        <div>
+          <div class="sb-user-name">RenewAI Analyst</div>
+          <div class="sb-user-role">Enterprise Asset Audit</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══════════════ MAIN ══════════════ -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-page" id="topbar-title">Dashboard</div>
+        <div class="topbar-crumb" id="topbar-crumb">EcoPulse / Overview / Live Data</div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-date" id="topbar-user"></div>
+        <div class="topbar-date" id="topbar-date"></div>
+        <button class="btn btn-ghost" onclick="exportPDF()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export PDF
+        </button>
+        <button class="btn btn-primary" onclick="nav('dashboard', document.querySelector('.sb-item'))">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Log Entry
+        </button>
+        <button class="btn btn-ghost" id="btn-logout" style="display:none">
+          Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- Content panels -->
+    <div class="content">
+
+      <!-- ══════════ DASHBOARD ══════════ -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="dash-wrapper">
+
+          <!-- ZONE 1: Filter bar — full width, single line -->
+          <div class="dash-filter">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted);flex-shrink:0"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            <span class="dash-filter-label">Filter Portfolio</span>
+            <div style="display:flex;gap:6px">
+              <div class="chip on"  onclick="chip(this)">All Assets</div>
+              <div class="chip off" onclick="chip(this)">Solar</div>
+              <div class="chip off" onclick="chip(this)">Wind</div>
+              <div class="chip off" onclick="chip(this)">Hybrid</div>
+              <div class="chip off" onclick="chip(this)">Battery</div>
+            </div>
+            <div style="margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--muted2)">
+              Audit window: Jan 27 – Feb 9, 2026 &nbsp;·&nbsp; 15 observations
+            </div>
+          </div>
+
+          <!-- ZONE 2: KPI strip — full width, 3 cards side by side -->
+          <div class="dash-kpis">
+            <div class="stat-card red">
+              <div class="stat-icon red">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <div class="stat-text">
+                <div class="stat-label">Total Revenue Loss</div>
+                <div class="stat-value red">₹1,98,914</div>
+                <div class="stat-delta">Capital leakage this period</div>
+              </div>
+            </div>
+            <div class="stat-card amber">
+              <div class="stat-icon amber">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div class="stat-text">
+                <div class="stat-label">Energy Variance</div>
+                <div class="stat-value amber">37,888 <span class="unit">kWh</span></div>
+                <div class="stat-delta">Actual vs expected generation gap</div>
+              </div>
+            </div>
+            <div class="stat-card navy">
+              <div class="stat-icon navy">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div class="stat-text">
+                <div class="stat-label">Portfolio Efficiency</div>
+                <div class="stat-value">38 <span class="unit">%</span></div>
+                <div class="stat-delta">Overall performance index</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ZONE 3: Body — form left, charts right -->
+          <div class="dash-body">
+
+            <!-- LEFT: Operational Log Form + CTA -->
+            <div class="dash-left">
+              <div>
+                <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px">Operational Log</div>
+                <div style="font-size:11px;color:var(--muted);margin-bottom:18px">Record a plant observation below</div>
+              </div>
+
+              <div class="field">
+                <label class="field-label">Plant Asset Type</label>
+                <select class="select" id="f-asset">
+                  <option value="solar">Solar Photovoltaic</option>
+                  <option value="wind">Wind Turbine</option>
+                  <option value="hybrid">Hybrid (Solar + Wind)</option>
+                  <option value="battery">Battery Storage</option>
+                </select>
+              </div>
+
+              <div class="field-row" style="margin-bottom:14px">
+                <div>
+                  <label class="field-label">Entry Date</label>
+                  <input class="input" type="date" id="f-date">
+                </div>
+                <div>
+                  <label class="field-label">Tariff (₹/kWh)</label>
+                  <input class="input" type="number" id="f-tariff" value="5.25" step="0.01">
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="field-label">Expected Generation (kWh)</label>
+                <div class="input-group">
+                  <input class="input" type="number" id="f-expected" placeholder="Target kWh">
+                  <button class="icon-btn" onclick="autofill()" title="AI auto-suggest target">✨</button>
+                </div>
+              </div>
+
+              <div class="field" style="margin-bottom:20px">
+                <label class="field-label">Actual Harvest (kWh)</label>
+                <input class="input" type="number" id="f-actual" placeholder="Measured kWh">
+              </div>
+
+              <button id="btn-record" onclick="record()"
+                style="width:100%;padding:11px 16px;border-radius:8px;background:var(--navy);border:none;
+                       color:#fff;font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;
+                       letter-spacing:0.02em;transition:all 0.2s;margin-bottom:24px"
+                onmouseover="this.style.background='var(--navy2)'"
+                onmouseout="this.style.background='var(--navy)'">
+                Record Observation
+              </button>
+
+              <!-- Divider -->
+              <div style="border-top:1px solid var(--border);margin-bottom:24px"></div>
+
+              <!-- Analyst CTA -->
+              <div class="analyst-cta">
+                <div class="analyst-cta-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  Analyst Portfolio Review
+                </div>
+                <div class="analyst-cta-desc">
+                  Analyses your operational log for financial leakage and generates a formal 8-point executive report.
+                </div>
+                <button class="gen-btn" id="gen-btn" onclick="generate()">
+                  <div class="spinner" id="spinner"></div>
+                  <span id="gen-label">Generate Enterprise Report →</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- RIGHT: Charts -->
+            <div class="dash-right">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Portfolio Performance</div>
+                    <div class="card-sub">Actual Generation vs Expected — Daily kWh</div>
+                  </div>
+                  <div style="display:flex;gap:16px">
+                    <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)">
+                      <div style="width:18px;height:2px;background:var(--green-lt);border-radius:1px"></div>Actual
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)">
+                      <div style="width:18px;height:0;border-top:2px dashed #94a3b8"></div>Expected
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart-container" style="height:220px">
+                    <canvas id="chart-portfolio"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div class="card">
+                  <div class="card-header">
+                    <div>
+                      <div class="card-title">Financial Leakage Map</div>
+                      <div class="card-sub">Daily revenue loss (₹)</div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-container" style="height:155px">
+                      <canvas id="chart-leakage"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <div>
+                      <div class="card-title">Operational Efficiency Loss</div>
+                      <div class="card-sub">Performance deviation trend</div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-container" style="height:155px">
+                      <canvas id="chart-efficiency"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /dash-right -->
+          </div><!-- /dash-body -->
+        </div><!-- /dash-wrapper -->
+      </div>
+
+      <!-- ══════════ REPORT ══════════ -->
+      <div class="panel" id="panel-report">
+        <div class="report-wrap">
+          <div class="report-card fade-up">
+
+            <div class="report-head">
+              <div>
+                <div class="report-title">Operational Audit Report</div>
+                <div class="report-meta">
+                  <span class="meta-text">Confidential Analyst Document</span>
+                  <span class="meta-ref">• REF-66849883</span>
+                  <span class="meta-badge">Restricted</span>
+                </div>
+              </div>
+              <div class="report-actions">
+                <button class="btn btn-green" onclick="exportPDF()">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Export as PDF
+                </button>
+                <div class="verified">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13"><polyline points="20 6 9 17 4 12"/></svg>
+                  Report Verified
+                </div>
+              </div>
+            </div>
+
+            <div class="report-body">
+
+              <!-- Section 1 -->
+              <div class="rep-section">
+                <div class="rep-section-head">
+                  <div class="sec-num">1</div>
+                  Executive Performance Summary
+                </div>
+                <div id="exec-summary">
+                  <div class="ai-placeholder">
+                    Return to the Dashboard and click <strong>"Generate Enterprise Report"</strong> to run AI analysis and populate this section.
+                  </div>
+                </div>
+                <div class="kpi-strip" style="margin-top:18px">
+                  <div class="kpi-item">
+                    <div class="kpi-item-label">Total Capital Loss</div>
+                    <div class="kpi-item-val red">₹1,98,914</div>
+                    <div class="kpi-item-unit">Revenue leakage</div>
+                  </div>
+                  <div class="kpi-item">
+                    <div class="kpi-item-label">Energy Variance</div>
+                    <div class="kpi-item-val">37,888</div>
+                    <div class="kpi-item-unit">kWh generation gap</div>
+                  </div>
+                  <div class="kpi-item">
+                    <div class="kpi-item-label">Incident Count</div>
+                    <div class="kpi-item-val">15</div>
+                    <div class="kpi-item-unit">Logged events</div>
+                  </div>
+                  <div class="kpi-item">
+                    <div class="kpi-item-label">Variance Rate</div>
+                    <div class="kpi-item-val">47%</div>
+                    <div class="kpi-item-unit">Avg daily deviation</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 2 -->
+              <div class="rep-section">
+                <div class="rep-section-head">
+                  <div class="sec-num">2</div>
+                  Operational Variance Log
+                </div>
+                <table class="var-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th><th>Target (kWh)</th><th>Actual (kWh)</th><th>Loss (kWh)</th><th>Impact (₹)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="var-tbody"></tbody>
+                </table>
+              </div>
+
+              <!-- Section 3 -->
+              <div class="rep-section">
+                <div class="rep-section-head"><div class="sec-num">3</div> Strategic Insights & Root Causes</div>
+                <div class="insights-grid">
+                  <div class="insight-card">
+                    <div class="insight-top">
+                      <div class="insight-name">Acute Revenue Leakage Events</div>
+                      <span class="priority high">High</span>
+                    </div>
+                    <div class="insight-text">Two critical events: 4,212 kWh variance on Feb 2 (₹22,113 loss) and 2,458 kWh on Feb 9 (₹12,892 loss). These two events represent 18% of total portfolio losses for the period.</div>
+                  </div>
+                  <div class="insight-card">
+                    <div class="insight-top">
+                      <div class="insight-name">Solar Asset Degradation Trend</div>
+                      <span class="priority high">High</span>
+                    </div>
+                    <div class="insight-text">Solar PV is progressively underperforming from late January. Daily harvest declining to 11–15% below target before the critical dip on Feb 9, indicating worsening efficiency loss.</div>
+                  </div>
+                  <div class="insight-card">
+                    <div class="insight-top">
+                      <div class="insight-name">Hybrid Systematic Underperformance</div>
+                      <span class="priority med">Medium</span>
+                    </div>
+                    <div class="insight-text">Hybrid assets show a consistent flat underperformance of ~10% daily. This consistency points to a configuration or capacity limitation rather than intermittent hardware faults.</div>
+                  </div>
+                </div>
+                <div style="margin-top:14px">
+                  <div class="section-title" style="margin-bottom:10px">Probable Causes</div>
+                  <div class="causes">
+                    <div class="cause-card">Inverter string failure or blown fuses may explain the Feb 8 Solar incident — thermal imaging recommended.</div>
+                    <div class="cause-card">Grid curtailment or unscheduled turbine maintenance likely caused the Feb 2 Wind variance drop.</div>
+                    <div class="cause-card">Progressive soiling or tracker misalignment explains the widening baseline Solar variance over 2 weeks.</div>
+                    <div class="cause-card">Possible EMS control latency or dispatch logic anomalies causing consistent Hybrid underperformance.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 4 -->
+              <div class="rep-section">
+                <div class="rep-section-head"><div class="sec-num">4</div> Actionable Recommendations</div>
+
+                <div class="rec-card">
+                  <div class="rec-top">
+                    <div class="rec-left">
+                      <div class="rec-num">1</div>
+                      <div>
+                        <div class="rec-title">Solar Inverter String Diagnostic</div>
+                        <div class="rec-concern">Primary Concern</div>
+                      </div>
+                    </div>
+                    <button class="imp-badge important">Important</button>
+                  </div>
+                  <div class="rec-body">
+                    <div>
+                      <div class="rec-col-label">Action</div>
+                      <div class="rec-col-text">Dispatch field technician for thermal imaging and IV curve tracing. Review MPPT logs for clipping events between Jan 28–Feb 9.</div>
+                    </div>
+                    <div>
+                      <div class="rec-col-label">Action Impact</div>
+                      <div class="rec-col-text">Restores an estimated ₹45,000–₹70,000/month in lost generation revenue if inverter fault confirmed and replaced.</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rec-card">
+                  <div class="rec-top">
+                    <div class="rec-left">
+                      <div class="rec-num">2</div>
+                      <div>
+                        <div class="rec-title">Wind Variance Event (Feb 2) — RCA</div>
+                        <div class="rec-concern">Primary Concern</div>
+                      </div>
+                    </div>
+                    <button class="imp-badge important">Important</button>
+                  </div>
+                  <div class="rec-body">
+                    <div>
+                      <div class="rec-col-label">Action</div>
+                      <div class="rec-col-text">Request immediate Root Cause Analysis from the O&M provider to confirm if the 42% drop was due to grid curtailment or machine fault.</div>
+                    </div>
+                    <div>
+                      <div class="rec-col-label">Action Impact</div>
+                      <div class="rec-col-text">Determines if the loss is recoverable via downtime claims or requires physical repair and part replacement.</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rec-card">
+                  <div class="rec-top">
+                    <div class="rec-left">
+                      <div class="rec-num">3</div>
+                      <div>
+                        <div class="rec-title">Hybrid Efficiency Gap — EMS Audit</div>
+                        <div class="rec-concern">Primary Concern</div>
+                      </div>
+                    </div>
+                    <button class="imp-badge important">Important</button>
+                  </div>
+                  <div class="rec-body">
+                    <div>
+                      <div class="rec-col-label">Action</div>
+                      <div class="rec-col-text">Audit the Energy Management System setpoints for the Hybrid plant and verify optimal dispatch logic configuration.</div>
+                    </div>
+                    <div>
+                      <div class="rec-col-label">Action Impact</div>
+                      <div class="rec-col-text">Recovers the consistent ~10% daily energy loss, worth approximately ₹18,000–₹22,000 per month at current tariff.</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="report-foot">
+                <span>A · RENEWAI AUDIT SYSTEM V2.5</span>
+                <span>© 2026 RenewAI Enterprise Solutions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ ALERTS ══════════ -->
+      <div class="panel" id="panel-alerts">
+        <div class="page-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+            <div>
+              <div style="font-size:18px;font-weight:700;letter-spacing:-0.01em">Live Alerts</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:2px">AI-detected anomalies and operational warnings</div>
+            </div>
+            <button class="btn btn-ghost" onclick="showToast('✅ All alerts marked as read')">Mark all read</button>
+          </div>
+          <div class="alerts-list" id="alerts-list">
+            <div class="alert-item high">
+              <div class="alert-icon-wrap">⚡</div>
+              <div class="alert-msg">
+                HVAC / Inverter Unit 3 drawing 340% above baseline power. Possible fault or refrigerant leak. Estimated excess cost: ₹3,200/day.
+                <div class="alert-time">● 2 minutes ago · HIGH PRIORITY</div>
+              </div>
+              <button class="alert-dismiss" onclick="dismiss(this)">Dismiss</button>
+            </div>
+            <div class="alert-item medium">
+              <div class="alert-icon-wrap">☀️</div>
+              <div class="alert-msg">
+                Solar array (Sector B) underperforming by 18% vs irradiance forecast. Possible soiling or partial shading event. Check tracker alignment.
+                <div class="alert-time">1 hour ago · MEDIUM</div>
+              </div>
+              <button class="alert-dismiss" onclick="dismiss(this)">Dismiss</button>
+            </div>
+            <div class="alert-item medium">
+              <div class="alert-icon-wrap">💨</div>
+              <div class="alert-msg">
+                Wind turbine T-04 reporting SCADA communication timeout. Last telemetry received 47 minutes ago. Verify connectivity and site access.
+                <div class="alert-time">47 minutes ago · MEDIUM</div>
+              </div>
+              <button class="alert-dismiss" onclick="dismiss(this)">Dismiss</button>
+            </div>
+            <div class="alert-item low">
+              <div class="alert-icon-wrap">📋</div>
+              <div class="alert-msg">
+                Quarterly audit report due in 8 days. All operational log data is complete and verified. Proceed to Analyst Report to generate.
+                <div class="alert-time">1 day ago · LOW</div>
+              </div>
+              <button class="alert-dismiss" onclick="dismiss(this)">Dismiss</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ PORTFOLIO ══════════ -->
+      <div class="panel" id="panel-portfolio">
+        <div class="page-body">
+          <div style="font-size:18px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px">Portfolio Overview</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:24px">All active assets across solar, wind and hybrid categories</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+            <div class="card">
+              <div class="card-header"><div class="card-title">☀️ Solar Portfolio</div></div>
+              <div class="card-body">
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px"><span style="color:var(--muted)">Installed Capacity</span><strong>2.4 MWp</strong></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px"><span style="color:var(--muted)">Feb Generation</span><strong>48,320 kWh</strong></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px"><span style="color:var(--muted)">CUF</span><strong style="color:var(--amber)">22.4%</strong></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Revenue Loss</span><strong style="color:var(--red)">₹82,400</strong></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">💨 Wind Portfolio</div></div>
+              <div class="card-body">
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px"><span style="color:var(--muted)">Installed Capacity</span><strong>3.6 MW</strong></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px"><span style="color:var(--muted)">Feb Generation</span><strong>112,800 kWh</strong></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px"><span style="color:var(--muted)">CUF</span><strong style="color:var(--green)">34.7%</strong></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Revenue Loss</span><strong style="color:var(--red)">₹72,100</strong></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">⚡ Hybrid Portfolio</div></div>
+              <div class="card-body">
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px"><span style="color:var(--muted)">Installed Capacity</span><strong>1.8 MWp</strong></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px"><span style="color:var(--muted)">Feb Generation</span><strong>31,440 kWh</strong></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px"><span style="color:var(--muted)">CUF</span><strong style="color:var(--amber)">19.1%</strong></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Revenue Loss</span><strong style="color:var(--red)">₹44,414</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ SETTINGS ══════════ -->
+      <div class="panel" id="panel-settings">
+        <div class="page-body">
+          <div style="font-size:18px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px">Settings</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:24px">Configure your account and preferences</div>
+          <div class="settings-grid">
+            <div class="card">
+              <div class="card-header"><div class="card-title">Organisation Profile</div></div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:14px">
+                <div class="field"><label class="field-label">Organisation Name</label><input class="input" value="RenewAI Enterprise Solutions"></div>
+                <div class="field"><label class="field-label">Default Tariff (₹/kWh)</label><input class="input" type="number" value="5.25"></div>
+                <div class="field"><label class="field-label">Reporting Currency</label><select class="select"><option>Indian Rupee (₹)</option><option>US Dollar ($)</option><option>Euro (€)</option></select></div>
+                <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="showToast('✅ Profile saved!')">Save Changes</button>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div class="card">
+                <div class="card-header"><div class="card-title">Notifications</div></div>
+                <div class="card-body" style="display:flex;flex-direction:column;gap:12px">
+                  ${['Email alerts for anomalies','Daily performance digest','Weekly audit reminders','AI-generated report delivery'].map(n => `
+                  <div style="display:flex;justify-content:space-between;align-items:center">
+                    <span style="font-size:13px;color:var(--text2)">${n}</span>
+                    <div style="width:38px;height:20px;background:var(--green);border-radius:10px;position:relative;cursor:pointer;flex-shrink:0">
+                      <div style="width:14px;height:14px;background:#fff;border-radius:50%;position:absolute;right:3px;top:3px;box-shadow:0 1px 3px rgba(0,0,0,0.2)"></div>
+                    </div>
+                  </div>`).join('')}
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header"><div class="card-title">Data & Export</div></div>
+                <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+                  <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="showToast('📥 Exporting all data...')">Export All Logs (CSV)</button>
+                  <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="showToast('📄 Generating full archive...')">Download Full Report Archive</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /shell -->
+
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-item active" data-page="dashboard" onclick="nav('dashboard', document.querySelector('.sb-item'))">Dashboard</button>
+  <button class="mobile-nav-item" data-page="report" onclick="nav('report', Array.from(document.querySelectorAll('.sb-item')).find(el => el.textContent.includes('Analyst Report')))">Report</button>
+  <button class="mobile-nav-item" data-page="alerts" onclick="nav('alerts', Array.from(document.querySelectorAll('.sb-item')).find(el => el.textContent.includes('Alerts')))">Alerts</button>
+  <button class="mobile-nav-item" data-page="settings" onclick="nav('settings', Array.from(document.querySelectorAll('.sb-item')).find(el => el.textContent.includes('Settings')))">Settings</button>
+</nav>
+
+<div id="auth-modal" class="auth-modal">
+  <div class="auth-card">
+    <div class="auth-head">
+      <div class="auth-title">EcoPulse Access</div>
+      <div class="auth-sub">Login or create an account to continue</div>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="auth-tab-login" type="button">Login</button>
+      <button class="auth-tab" id="auth-tab-register" type="button">Register</button>
+    </div>
+    <form id="auth-form" class="auth-form">
+      <div class="field" id="auth-name-wrap" style="display:none">
+        <label class="field-label">Full Name</label>
+        <input class="input" id="auth-name" type="text" placeholder="Your name">
+      </div>
+      <div class="field">
+        <label class="field-label">Email</label>
+        <input class="input" id="auth-email" type="email" placeholder="you@company.com" required>
+      </div>
+      <div class="field">
+        <label class="field-label">Password</label>
+        <input class="input" id="auth-password" type="password" placeholder="Minimum 8 characters" required>
+      </div>
+      <div class="field" id="auth-role-wrap" style="display:none">
+        <label class="field-label">Role</label>
+        <select class="select" id="auth-role">
+          <option value="analyst">Analyst</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <div id="auth-error" class="auth-error"></div>
+      <button class="btn btn-primary auth-submit" id="auth-submit" type="submit">Login</button>
+    </form>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="./js/api.js"></script>
+<script src="./js/dashboard.js"></script>
+<script src="./js/report.js"></script>
+</body>
+</html>
