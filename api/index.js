@@ -18,12 +18,11 @@ const dbModule =
   loadModule(path.join(process.cwd(), 'server', 'utils', 'db')) ||
   loadModule(path.join(__dirname, '..', 'server', 'utils', 'db'));
 
-if (!appModule || !dbModule) {
-  throw new Error('Failed to resolve backend modules for Vercel runtime');
-}
+const bootstrapError =
+  !appModule || !dbModule ? 'Failed to resolve backend modules for Vercel runtime' : null;
 
-const { createApp } = appModule;
-const { connectDB } = dbModule;
+const { createApp } = appModule || {};
+const { connectDB } = dbModule || {};
 
 let app;
 let dbConnectionPromise;
@@ -37,6 +36,12 @@ function ensureDbConnected() {
 
 module.exports = async (req, res) => {
   try {
+    if (bootstrapError) {
+      return res.status(500).json({
+        success: false,
+        message: bootstrapError
+      });
+    }
     await ensureDbConnected();
     if (!app) app = createApp();
     return app(req, res);
