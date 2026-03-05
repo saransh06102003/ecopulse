@@ -1,0 +1,6 @@
+node_modules
+raw-demo.mov
+tests
+.venv
+.pptx-venv
+*.log
