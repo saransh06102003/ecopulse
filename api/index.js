@@ -1,5 +1,29 @@
-const { createApp } = require('../server/app');
-const { connectDB } = require('../server/utils/db');
+const path = require('path');
+
+function loadModule(modulePath) {
+  try {
+    return require(modulePath);
+  } catch (error) {
+    return null;
+  }
+}
+
+const appModule =
+  loadModule('../server/app') ||
+  loadModule(path.join(process.cwd(), 'server', 'app')) ||
+  loadModule(path.join(__dirname, '..', 'server', 'app'));
+
+const dbModule =
+  loadModule('../server/utils/db') ||
+  loadModule(path.join(process.cwd(), 'server', 'utils', 'db')) ||
+  loadModule(path.join(__dirname, '..', 'server', 'utils', 'db'));
+
+if (!appModule || !dbModule) {
+  throw new Error('Failed to resolve backend modules for Vercel runtime');
+}
+
+const { createApp } = appModule;
+const { connectDB } = dbModule;
 
 let app;
 let dbConnectionPromise;
